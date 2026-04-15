@@ -29,14 +29,19 @@
             </Grid.RowDefinitions>
 
             <!-- Cabecera -->
-            <DockPanel Grid.Row="0" Margin="0 0 0 16">
-                <TextBlock Text="Rutinas" FontSize="22" FontWeight="Bold"
+            <Grid Grid.Row="0" Margin="0 0 0 16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Rutinas" FontSize="22" FontWeight="Bold"
                            VerticalAlignment="Center"/>
-                <Button DockPanel.Dock="Right"
+                <Button Grid.Column="1"
                         Style="{StaticResource AccentButton}"
                         Content="+ Nueva Rutina"
+                        Padding="16 8"
                         Click="BtnNuevaRutina_Click"/>
-            </DockPanel>
+            </Grid>
 
             <!-- DataGrid de rutinas -->
             <DataGrid x:Name="GridRutinas" Grid.Row="1"

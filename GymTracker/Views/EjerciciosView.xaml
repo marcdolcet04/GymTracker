@@ -21,14 +21,19 @@
         <DockPanel Grid.Column="0" Margin="24">
 
             <!-- Cabecera -->
-            <DockPanel DockPanel.Dock="Top" Margin="0 0 0 16">
-                <TextBlock Text="Ejercicios" FontSize="22" FontWeight="Bold"
+            <Grid DockPanel.Dock="Top" Margin="0 0 0 16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Ejercicios" FontSize="22" FontWeight="Bold"
                            VerticalAlignment="Center"/>
-                <Button x:Name="BtnNuevoEjercicio" DockPanel.Dock="Right"
+                <Button Grid.Column="1" x:Name="BtnNuevoEjercicio"
                         Style="{StaticResource AccentButton}"
                         Content="+ Nuevo Ejercicio"
+                        Padding="16 8"
                         Click="BtnNuevoEjercicio_Click"/>
-            </DockPanel>
+            </Grid>
 
             <!-- Filtros -->
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
