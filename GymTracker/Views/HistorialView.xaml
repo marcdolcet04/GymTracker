@@ -1,0 +1,101 @@
+<UserControl x:Class="GymTracker.Views.HistorialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#1A1A1A">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize"   Value="13"/>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <DockPanel Margin="24">
+
+        <!-- Cabecera -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="Historial" FontSize="22" FontWeight="Bold"
+                   Margin="0 0 0 16"/>
+
+        <!-- Barra de filtros -->
+        <Border DockPanel.Dock="Top" Background="#111111"
+                Padding="16 12" CornerRadius="4" Margin="0 0 0 16">
+            <WrapPanel Orientation="Horizontal">
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center">
+                    <TextBlock Text="Desde:" VerticalAlignment="Center" Margin="0 0 8 0"
+                               Foreground="#AAAAAA"/>
+                    <DatePicker x:Name="DpDesde" Width="140"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center">
+                    <TextBlock Text="Hasta:" VerticalAlignment="Center" Margin="0 0 8 0"
+                               Foreground="#AAAAAA"/>
+                    <DatePicker x:Name="DpHasta" Width="140"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center">
+                    <TextBlock Text="Ejercicio:" VerticalAlignment="Center" Margin="0 0 8 0"
+                               Foreground="#AAAAAA"/>
+                    <ComboBox x:Name="CmbEjercicio"
+                              Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Nombre}" Foreground="White"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button Content="🔍  Filtrar"
+                        Style="{StaticResource AccentButton}"
+                        Margin="0 0 8 0"
+                        Click="BtnFiltrar_Click"/>
+
+                <Button Content="📥  Exportar CSV"
+                        Style="{StaticResource SecondaryButton}"
+                        Click="BtnExportarCSV_Click"/>
+            </WrapPanel>
+        </Border>
+
+        <!-- Contador de resultados -->
+        <TextBlock x:Name="TxtContador" DockPanel.Dock="Top"
+                   Foreground="#888888" Margin="0 0 0 8"/>
+
+        <!-- DataGrid de solo lectura -->
+        <DataGrid x:Name="GridHistorial" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha"
+                                    Binding="{Binding FechaSesion, StringFormat={}{0:dd/MM/yyyy}}"
+                                    Width="100"/>
+                <DataGridTextColumn Header="Rutina"
+                                    Binding="{Binding NombreRutina}"
+                                    Width="160"/>
+                <DataGridTextColumn Header="Ejercicio"
+                                    Binding="{Binding NombreEjercicio}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Serie"
+                                    Binding="{Binding NumSerie}"
+                                    Width="60"/>
+                <DataGridTextColumn Header="Repeticiones"
+                                    Binding="{Binding Repeticiones}"
+                                    Width="110"/>
+                <DataGridTextColumn Header="Peso (kg)"
+                                    Binding="{Binding PesoKg, StringFormat={}{0:F2}}"
+                                    Width="100"/>
+                <DataGridTemplateColumn Header="" Width="140">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Eliminar sesión"
+                                    Style="{StaticResource DangerButton}"
+                                    Tag="{Binding}"
+                                    Visibility="{Binding EsPrimeraFilaDeSesion, Converter={StaticResource BoolToVis}}"
+                                    Click="BtnEliminarSesion_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

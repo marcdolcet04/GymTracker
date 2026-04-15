@@ -1,0 +1,128 @@
+<UserControl x:Class="GymTracker.Views.EjerciciosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#1A1A1A">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize"   Value="13"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- Panel lateral de formulario -->
+            <ColumnDefinition x:Name="FormColumn" Width="0"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ═══════════ PANEL PRINCIPAL ═══════════ -->
+        <DockPanel Grid.Column="0" Margin="24">
+
+            <!-- Cabecera -->
+            <DockPanel DockPanel.Dock="Top" Margin="0 0 0 16">
+                <TextBlock Text="Ejercicios" FontSize="22" FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+                <Button x:Name="BtnNuevoEjercicio" DockPanel.Dock="Right"
+                        Style="{StaticResource AccentButton}"
+                        Content="+ Nuevo Ejercicio"
+                        Click="BtnNuevoEjercicio_Click"/>
+            </DockPanel>
+
+            <!-- Filtros -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"
+                        Margin="0 0 0 16" >
+                <Grid Width="240" Margin="0 0 12 0">
+                    <TextBox x:Name="TxtBuscar"
+                             Style="{StaticResource DarkTextBox}"
+                             TextChanged="TxtBuscar_TextChanged"/>
+                    <TextBlock x:Name="TxtBuscarPlaceholder"
+                               Text="🔍  Buscar ejercicio..."
+                               Foreground="#666666" FontSize="13"
+                               Margin="9 7 0 0" IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=TxtBuscar}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <ComboBox x:Name="CmbFiltroGrupo"
+                         
+                          Width="180"
+                          SelectionChanged="CmbFiltroGrupo_SelectionChanged"/>
+            </StackPanel>
+
+            <!-- DataGrid -->
+            <DataGrid x:Name="GridEjercicios">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre"         Binding="{Binding Nombre}"        Width="200"/>
+                    <DataGridTextColumn Header="Grupo Muscular" Binding="{Binding GrupoMuscular}" Width="160"/>
+                    <DataGridTextColumn Header="Descripción"    Binding="{Binding Descripcion}"   Width="*"/>
+                    <DataGridTemplateColumn Header="" Width="160">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="Editar"
+                                            Style="{StaticResource RowButton}"
+                                            Tag="{Binding}"
+                                            Margin="0 0 6 0"
+                                            Click="BtnEditar_Click"/>
+                                    <Button Content="Eliminar"
+                                            Style="{StaticResource DangerButton}"
+                                            Tag="{Binding}"
+                                            Click="BtnEliminar_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <!-- ═══════════ PANEL FORMULARIO LATERAL ═══════════ -->
+        <Border Grid.Column="1" Background="#111111" Padding="24">
+            <StackPanel>
+                <TextBlock x:Name="FormTitulo" Text="Nuevo Ejercicio"
+                           FontSize="18" FontWeight="Bold" Margin="0 0 0 24"/>
+
+                <TextBlock Text="Nombre *" Margin="0 0 0 4"/>
+                <TextBox x:Name="TxtNombre"
+                         Style="{StaticResource DarkTextBox}"
+                         Margin="0 0 0 16"/>
+
+                <TextBlock Text="Grupo Muscular *" Margin="0 0 0 4"/>
+                <ComboBox x:Name="CmbGrupoMuscular"
+                         
+                          Margin="0 0 0 16"/>
+
+                <TextBlock Text="Descripción" Margin="0 0 0 4"/>
+                <TextBox x:Name="TxtDescripcion"
+                         Style="{StaticResource DarkTextBox}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         Height="100"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0 0 0 24"/>
+
+                <Button x:Name="BtnGuardar"
+                        Style="{StaticResource AccentButton}"
+                        Content="Guardar"
+                        Margin="0 0 0 8"
+                        Click="BtnGuardar_Click"/>
+
+                <Button x:Name="BtnCancelar"
+                        Style="{StaticResource SecondaryButton}"
+                        Content="Cancelar"
+                        Click="BtnCancelar_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

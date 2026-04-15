@@ -1,0 +1,56 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de usuario de proyecto
+*.csproj.user
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!**/packages/build/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Publicación
+publish/
+**/Properties/PublishProfiles/
+
+# Archivos de cobertura de tests
+*.coverage
+*.coveragexml
+TestResults/
+
+# Caché de NuGet local (no debe commitearse)
+[Nn]uget.config
+
+# Claude Code
+.claude/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# SQLite (base de datos local, no va en el repo)
+*.db
+*.db-shm
+*.db-wal
